@@ -1,8 +1,4 @@
-﻿using HumanCapitalManagement.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace HumanCapitalManagement.Infrastructure.EntityConfiguration;
+﻿namespace HumanCapitalManagement.Infrastructure.EntityConfiguration;
 
 public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
@@ -16,11 +12,11 @@ public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<Appli
 			.IsRequired();
 
 		builder
-			.Property(e => e.PasswardHash)
+			.Property(e => e.PasswordHash)
 			.IsRequired();
 
 		builder
-		.Property(e => e.PasswardSalt)
+		.Property(e => e.PasswordSalt)
 		.IsRequired();
 
 		builder

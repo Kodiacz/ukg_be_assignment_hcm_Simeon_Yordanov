@@ -1,8 +1,4 @@
-﻿using HumanCapitalManagement.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace HumanCapitalManagement.Infrastructure.EntityConfiguration;
+﻿namespace HumanCapitalManagement.Infrastructure.EntityConfiguration;
 
 public class UserRolesEntotyConfiguration : IEntityTypeConfiguration<UserRoles>
 {
