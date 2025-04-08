@@ -1,10 +1,13 @@
-﻿using System.Text.Json;
-
-namespace HumanCapitalManagement.Infrastructure;
+﻿namespace HumanCapitalManagement.Infrastructure;
 
 public class JsonStoreAccessor
 {
 	protected readonly string basePath = Path.Combine(AppContext.BaseDirectory, "DummyStore");
+
+	public JsonStoreAccessor()
+	{
+		this.EnsureRuntimeDataInitialized();
+	}
 
 	protected List<T> LoadFromJson<T>(string fileName)
 	{
@@ -25,4 +28,23 @@ public class JsonStoreAccessor
 		File.WriteAllText(fullPath, json);
 	}
 
+	private void EnsureRuntimeDataInitialized()
+	{
+		if (!Directory.Exists(basePath))
+		{
+			Directory.CreateDirectory(basePath);
+			CopyInitialData();
+		}
+	}
+
+	private void CopyInitialData()
+	{
+		var seedPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "HumanCapitalManagement.Infrastructure", "DummyStore");
+
+		foreach (var file in Directory.GetFiles(seedPath, "*.json"))
+		{
+			var destFile = Path.Combine(basePath, Path.GetFileName(file));
+			File.Copy(file, destFile, overwrite: false);
+		}
+	}
 }

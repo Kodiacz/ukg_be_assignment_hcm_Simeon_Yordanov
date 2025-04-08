@@ -1,9 +1,4 @@
-﻿using HumanCapitalManagement.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
-namespace HumanCapitalManagement.Infrastructure;
+﻿namespace HumanCapitalManagement.Infrastructure;
 
 public class DataSeeder : JsonStoreAccessor
 {
@@ -27,7 +22,7 @@ public class DataSeeder : JsonStoreAccessor
 	{
 		var data = LoadFromJson<Person>("persons.json");
 
-		if (!this.dbContext.People.Any())
+		if (!this.dbContext.Persons.Any())
 			await this.AddToDBContext(data);
 	}
 
@@ -56,7 +51,7 @@ public class DataSeeder : JsonStoreAccessor
 	{
 		foreach (var item in data)
 		{
-			await this.dbContext.AddAsync(item);
+			await this.dbContext.AddAsync(item); // here on the first atempt of adding an ApplicationUser entity
 		}
 
 		await this.dbContext.SaveChangesAsync();
