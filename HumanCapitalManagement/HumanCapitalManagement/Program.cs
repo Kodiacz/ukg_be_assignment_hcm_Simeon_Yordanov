@@ -1,16 +1,22 @@
-using HumanCapitalManagement.API.Extensions;
-using HumanCapitalManagement.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(configure =>
+{
+	configure.Filters.AddApplicationFilters();
+})
+.AddJsonOptions(options =>
+{
+	options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<DataSeeder>();
+builder.Services.ConfigureSwagger();
 
 builder.Services.AddDbContext<HcmDbContext>(options =>
 	options.UseInMemoryDatabase("HcmDatabase"));
+builder.Services.AddApplicationServices();
+builder.Services.AddApplicationAuthentication(builder);
+builder.Services.AddExceptionStatusCodeMappings();
 
 var app = builder.Build();
 
@@ -21,9 +27,14 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 
 	await app.SeedDatabase();
+	await app.PersistData();
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseRouting();
 
 app.UseAuthorization();
 
