@@ -1,15 +1,11 @@
-﻿using HumanCapitalManagement.Domain.Entities;
-using HumanCapitalManagement.Infrastructure.EntityConfiguration;
-using Microsoft.EntityFrameworkCore;
-
-namespace HumanCapitalManagement.Infrastructure
+﻿namespace HumanCapitalManagement.Infrastructure
 {
 	public class HcmDbContext : DbContext
 	{
 		public HcmDbContext(DbContextOptions<HcmDbContext> options)
 			: base(options) { }
 
-		public DbSet<Person> People { get; set; }
+		public DbSet<Person> Persons { get; set; }
 
 		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
