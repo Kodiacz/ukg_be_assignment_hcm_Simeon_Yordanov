@@ -53,3 +53,24 @@ This design provides a realistic testing experience while keeping things lightwe
 - If not, create it and copy the initial files.
 - Seed the in-memory database with the data.
 - Persist any changes back to file on application exit.
+
+## 🏗️ Project Structure (Clean Architecture)
+
+This project follows the **Clean Architecture** principles, which aim to separate concerns, making the application more maintainable and testable. Here's an overview of the structure:
+
+- **API Layer** (`HumanCapitalManagement.API`):
+  - The entry point of the application.
+  - Contains controllers and the main routing logic for handling HTTP requests.
+
+- **Application Layer** (`HumanCapitalManagement.Application`):
+  - Contains business logic and service classes (such as `AuthService`) that handle the application's core operations.
+  - Interfaces and DTOs are also defined here.
+
+- **Infrastructure Layer** (`HumanCapitalManagement.Infrastructure`):
+  - Contains the implementation of the persistence mechanisms (like `Seeder`, `Persister`) and external services.
+  - Implements interfaces defined in the Application layer, such as `IAuthRepository`.
+
+- **Domain Layer** (`HumanCapitalManagement.Domain`):
+  - Contains the core domain models (e.g., `ApplicationUser`, `Person`, `Role`. `UserRoles`) and domain logic.
+  - This layer should not depend on any other layer and serves as the foundation for the rest of the application.
+
