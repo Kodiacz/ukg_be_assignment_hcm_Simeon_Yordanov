@@ -9,9 +9,9 @@ public class ApplicationUser
 
 	public int Id { get; set; }
 
-	public string PasswardHash { get; set; } = null!;
+	public string PasswordHash { get; set; } = null!;
 
-	public string PasswardSalt { get; set; } = null!;
+	public string PasswordSalt { get; set; } = null!;
 
 	public ICollection<UserRoles> UserRoles { get; set; }
 
