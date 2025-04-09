@@ -20,6 +20,15 @@ public class AdminController : ControllerBase
 		return Ok(users);
 	}
 
+	[HttpPost]
+
+	public async Task<IActionResult> AddRoleToUser(AddUserRoleDto input)
+	{
+		await this.adminService.AddRoleToUser(input);
+		return Ok();
+	}
+
+
 	[HttpPatch]
 
 	public async Task<IActionResult> UpdateUserRole(UserRoleUpdateInputDto input)

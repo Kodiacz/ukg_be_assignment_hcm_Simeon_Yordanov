@@ -9,6 +9,25 @@ public class AdminService : IAdminService
 		this.userRepo = userRepo;
 	}
 
+	public async Task AddRoleToUser(AddUserRoleDto addUserRoleDto)
+	{
+		ApplicationUser user = await this.userRepo.GetByEmailAsync(addUserRoleDto.Email);
+
+		if (user == null)
+			throw new ApplicationArgumenNullException($"user with {addUserRoleDto.Email} was not found");
+
+		if (user.UserRoles.Any(x => x.Role.Name == addUserRoleDto.Role.ToString()))
+			throw new RoleAlreadyAssignedException(addUserRoleDto.Role.ToString());
+
+		UserRoles userRole = new UserRoles()
+		{
+			Role = new Role() { Name = addUserRoleDto.Role.ToString() },
+			User = user,
+		};
+
+		await this.userRepo.AddUserRoleAsync(userRole);
+	}
+
 	public async Task<PagedResult<UserGetDto>> GetAllUsers(UserInputDto inputDto)
 	{
 		IQueryable<ApplicationUser> query = this.userRepo.BuildQuery(inputDto);

@@ -16,11 +16,22 @@ public class ApplicationUserRepository : IApplicationUserRepository
 		throw new NotImplementedException();
 	}
 
+	public async Task AddUserRoleAsync(UserRoles userRole)
+	{
+		await this.dbContext.UserRoles.AddAsync(userRole);
+		await this.dbContext.SaveChangesAsync();
+	}
+
 	#endregion
 
 	#region Delete
 
 	public Task DeleteAsync(int id)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task RemoveUserRoleAsync(UserRoles userRole)
 	{
 		throw new NotImplementedException();
 	}
@@ -107,13 +118,20 @@ public class ApplicationUserRepository : IApplicationUserRepository
 			.ToListAsync();
 	}
 
-	public Task<ApplicationUser> GetByEmailAsync(int id)
+	public async Task<ApplicationUser?> GetByEmailAsync(string email)
+	{
+		return await this.dbContext
+			.ApplicationUsers
+			.Include(x => x.Person)
+			.Include(x => x.UserRoles)
+			.ThenInclude(x => x.Role)
+			.FirstOrDefaultAsync(x => x.Person.Email == email);
+	}
+
+	public Task<ApplicationUser> GetByEmailAsyncAsReadOnly(string email)
 	{
 		throw new NotImplementedException();
 	}
-
-	#endregion
-
 	public Task<ApplicationUser> GetByEmailAsyncAsReadOnly(int id)
 	{
 		throw new NotImplementedException();
@@ -129,11 +147,14 @@ public class ApplicationUserRepository : IApplicationUserRepository
 		throw new NotImplementedException();
 	}
 
+	#endregion
+
 	#region Update
 
-	public Task UpdateAsync(ApplicationUser user)
+	public async Task UpdateAsync(ApplicationUser user)
 	{
-		throw new NotImplementedException();
+		await this.dbContext.AddAsync(user);
+		await this.dbContext.SaveChangesAsync();
 	}
 
 	#endregion

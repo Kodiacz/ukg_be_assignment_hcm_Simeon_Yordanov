@@ -42,10 +42,12 @@ public class PagedResult<T>
 
 public class UserRoleUpdateInputDto
 {
-	public int UserId { get; set; }
+	public string Email { get; set; }
 
 	public ApplicationRoles Role { get; set; }
 }
+
+public class AddUserRoleDto : UserRoleUpdateInputDto;
 
 public enum SortBy
 {
