@@ -107,24 +107,24 @@ public class ApplicationUserRepository : IApplicationUserRepository
 			.ToListAsync();
 	}
 
-	public Task<ApplicationUser> GetByIdAsync(int id)
+	public Task<ApplicationUser> GetByEmailAsync(int id)
 	{
 		throw new NotImplementedException();
 	}
 
 	#endregion
 
-	public Task<ApplicationUser> GetByIdAsyncAsReadOnly(int id)
+	public Task<ApplicationUser> GetByEmailAsyncAsReadOnly(int id)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<ApplicationUser> GetByPersonIdAsync(int personId)
+	public Task<ApplicationUser> GetByIdAsync(int personId)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<ApplicationUser> GetByPersonIdAsyncAsReadOnly(int personId)
+	public Task<ApplicationUser> GetByIdAsyncAsReadOnly(int personId)
 	{
 		throw new NotImplementedException();
 	}

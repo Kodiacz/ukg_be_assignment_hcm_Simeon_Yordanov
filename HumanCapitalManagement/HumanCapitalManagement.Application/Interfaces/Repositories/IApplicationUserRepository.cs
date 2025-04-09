@@ -5,10 +5,10 @@ namespace HumanCapitalManagement.Application.Interfaces.Repositories;
 public interface IApplicationUserRepository
 {
 	// General Methods
+	Task<ApplicationUser> GetByEmailAsync(int email);
+	Task<ApplicationUser> GetByEmailAsyncAsReadOnly(int email);
 	Task<ApplicationUser> GetByIdAsync(int id);
 	Task<ApplicationUser> GetByIdAsyncAsReadOnly(int id);
-	Task<ApplicationUser> GetByPersonIdAsync(int personId);
-	Task<ApplicationUser> GetByPersonIdAsyncAsReadOnly(int personId);
 	Task AddAsync(ApplicationUser user);
 	Task UpdateAsync(ApplicationUser user);
 	Task DeleteAsync(int id);
